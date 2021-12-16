@@ -1,11 +1,14 @@
 const fs = require('fs')
+let increases = 0
 
 fs.readFile(process.argv[2], function(err, f) {
-  if (err) {
-    console.error(err)
-    return
+  if (err) return console.error(err)
+
+  const depths = f.toString().split('\n').map(n => parseInt(n))
+
+  for (let i = 1; i < depths.length; i++) {
+    if (depths[i] > depths[i-1]) increases++
   }
 
-  const lines = f.toString().split('\n')
-  console.log(lines)
+  console.log(increases)
 })
